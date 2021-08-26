@@ -12,7 +12,7 @@ function checkCashRegister(price, cash, cid) {
     "ONE HUNDRED": 100,
   }
 
-  let cidSummedUp = [];
+  let cidToSumUp = [];
 
   /*Trying forEach option - so far not working well*/
   // cid.forEach(arr => {
@@ -26,12 +26,13 @@ function checkCashRegister(price, cash, cid) {
     
   // };
 
-  let cidSummedUp = [];
-   for (let i=0; i<cid.length; i++){
-     cidSummedUp.push(cid[i][1]);
-    }
   
-   console.log(cidSummedUp);
+  for (let i=0; i<cid.length; i++){
+      cidToSumUp.push(cid[i][1]);
+     };
+
+  let total = cidToSumUp.reduce((a,b)=>a+b,0).toFixed(2);
+    console.log(total);
   };
   
 
