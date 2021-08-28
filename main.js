@@ -1,46 +1,42 @@
 function checkCashRegister(price, cash, cid) {
-  let change = cash - price;
   const currency = {
-    "PENNY": 0.01,
-    "NICKEL": 0.05,
-    "DIME": 0.1,
-    "QUARTER": 0.25,
-    "ONE": 1,
-    "FIVE": 5,
-    "TEN": 10,
-    "TWENTY": 20,
-    "ONE HUNDRED": 100,
+    "PENNY": 1,
+    "NICKEL": 5,
+    "DIME": 10,
+    "QUARTER": 25,
+    "ONE": 100,
+    "FIVE": 500,
+    "TEN": 1000,
+    "TWENTY": 2000,
+    "ONE HUNDRED": 10000,
   }
+   
 
   let cidToSumUp = [];
+  for (let i=0; i<cid.length; i++){
+      cidToSumUp.push(cid[i][1]);
+     };
+  let totalCidSum = cidToSumUp.reduce((a,b)=>a+b,0)*100/100;
 
-  /*Trying forEach option - so far not working well*/
-  // cid.forEach(arr => {
-  //   arr.forEach(item => console.log(item));
-  // })
-  /*double iteration through arrays - prints all the numbers twice*/
-  // for (let i=0; i<cid.length; i++){
-  //   for (let j=0; j<cid[i].length; j++){
-  //     cidSummedUp.push(cid[i][1]);
-  //   }
-    
-  // };
-
-    for (let i=0; i<cid.length; i++){
-        cidToSumUp.push(cid[i][1]);
-       };
+  let change = cash * 100 - price * 100;
+  let changeToGive = [];
   
-    let totalCidSum = cidToSumUp.reduce((a,b)=>a+b,0)*100/100;
-      // console.log(totalCidSum);
-     if (change < totalCidSum){
-        return {status: "OPEN", change: []}
-        
-     }else if (change === totalCidSum){
-        return {status: "CLOSED", change: []}
-     }else{
-        return {status: "INSUFFICIENT_FUNDS", change: []}
+  if (change > totalCidSum){
+    return {status: "INSUFFICIENT_FUNDS", change: []}
+   }else if (change*100/100 === totalCidSum){
+      return {status: "CLOSED", change: [cid]}
+   }else{
+    for (let value of cid){
+    while (change >= currency[value[1]]){
+         
+    }console.log(value);
+      
+    
+     return {status: "OPEN", change: []};
+       }
      }
-  };
+
+   };
   checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
   
 
