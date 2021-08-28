@@ -26,14 +26,22 @@ function checkCashRegister(price, cash, cid) {
     
   // };
 
+    for (let i=0; i<cid.length; i++){
+        cidToSumUp.push(cid[i][1]);
+       };
   
-  for (let i=0; i<cid.length; i++){
-      cidToSumUp.push(cid[i][1]);
-     };
-
-  let total = cidToSumUp.reduce((a,b)=>a+b,0).toFixed(2);
-    console.log(total);
+    let totalCidSum = cidToSumUp.reduce((a,b)=>a+b,0)*100/100;
+      // console.log(totalCidSum);
+     if (change < totalCidSum){
+        return {status: "OPEN", change: []}
+        
+     }else if (change === totalCidSum){
+        return {status: "CLOSED", change: []}
+     }else{
+        return {status: "INSUFFICIENT_FUNDS", change: []}
+     }
   };
+  checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
   
 
     // if( change < cidSummedUp){
@@ -43,8 +51,3 @@ function checkCashRegister(price, cash, cid) {
     // }else{
 
     // }
-
-  
-  
-
-  checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
