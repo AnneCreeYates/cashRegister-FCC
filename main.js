@@ -28,8 +28,8 @@ function checkCashRegister(price, cash, cid) {
   
     //compare the change to give with the cid sum - 3 outcomes expected
     
-    // 1. there is not enough change in the cid; another logic to try ->  cid[0][1]*100 !== exactChange <- seems to be working better than -> cidTotal < exactChange
-    if (cid[0][1]*100 !== exactChange){
+    // 1. there is not enough change in the cid; another logic to try ->  cid[0][1]*100 !== exactChange <- seems to be working better than -> cidTotal < exactChange (not true; the first option is too specific. stops the program before it reaches the last option - try putting it at the end)
+    if ( cidTotal < exactChange){
       return {status: "INSUFFICIENT_FUNDS", change: []};
     }
     //2. there is exactly enough change in the cid
@@ -57,6 +57,6 @@ function checkCashRegister(price, cash, cid) {
     
     
   
-  }
+  };
   
   checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
