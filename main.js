@@ -52,7 +52,62 @@ function checkCashRegister(price, cash, cid) {
       }
     }
   }
-  return {status: "OPEN", change: notesAndCoins} 
+  return {status: "OPEN", change: notesAndCoins}
+  
+  
+  // below is the workking solution submitted to freecodecamp
+  
+
+function checkCashRegister(price, cash, cid) {
+
+  const currencyUnits = {
+    "ONE HUNDRED": 100,
+      "TWENTY": 20,
+      "TEN": 10,
+      "FIVE": 5,
+      "ONE": 1,
+      "QUARTER": 0.25,
+      "DIME": 0.10,
+      "NICKEL": 0.05,
+      "PENNY": 0.01,
+  };
+
+  let customersChange = cash - price;
+  let notesAndCoin = [];
+
+  let cidSum = 0;
+    cid.forEach(function(element){
+      cidSum += element[1];
+    });
+    cidSum = cidSum.toFixed(2);
+
+  if (cidSum < customersChange) {
+    return {status: "INSUFFICIENT_FUNDS", change: []}
+  } else if (customersChange.toFixed(2) === cidSum) {
+    return {status: "CLOSED", change: cid};
+  } else {
+    cid = cid.reverse();
+    for (let item of cid) {
+      let result = [item[0], 0];
+      
+      while (customersChange >= currencyUnits[item[0]] && item[1] > 0) {
+        result[1] += currencyUnits[item[0]];
+        item[1] -= currencyUnits[item[0]];
+        customersChange -= currencyUnits[item[0]];
+        customersChange = customersChange.toFixed(2);
+      }
+      if (result[1] > 0) {
+        notesAndCoin.push(result);
+      }
+    }
+  }
+  if (customersChange > 0) {
+    return {status: "INSUFFICIENT_FUNDS", change: []};
+  }
+  return {status: "OPEN", change: notesAndCoin};
+}
+
+checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
     
     
     
